@@ -1,82 +1,64 @@
-# WordPress on Render
+# flat2112-woo
 
-A sample WordPress website configured for deployment on Render.com with Docker.
+A WordPress site for flat2112 with WooCommerce integration.
 
-## Features
+## 🚀 Quick Start
 
-- 🐳 Docker-based deployment
-- 🔒 Environment variable configuration
-- 🚀 Optimized for Render platform
-- 📱 Responsive WordPress installation
-- 🔧 Local development support
+### Option 1: Docker (Recommended for Local Development)
 
-## Quick Deployment to Render
+The easiest way to get started is using Docker:
 
-### Step 1: Set Up External MySQL Database
-Since Render uses PostgreSQL but WordPress needs MySQL, you'll need an external MySQL database:
+```bash
+# Clone the repository
+git clone <your-repo-url>
+cd flat2112-woo
 
-**Recommended: PlanetScale (Free Tier)**
+# Copy environment file
+cp .env.example .env
+
+# Start the services
+docker compose up -d
+
+# Access your site
+open http://localhost:8080
+```
+
+**What you get:**
+- WordPress at http://localhost:8080
+- phpMyAdmin at http://localhost:8081
+- MySQL database with persistent storage
+- Your custom theme pre-loaded
+
+For detailed Docker setup instructions, see [DOCKER_SETUP.md](DOCKER_SETUP.md).
+
+### Option 2: Render.com Deployment
+
+For production deployment on Render.com, you'll need an external MySQL database since Render uses PostgreSQL.
+
+**Recommended: PlanetScale (Free Tier Available)**
+
 1. Sign up at [PlanetScale](https://planetscale.com/)
-2. Create a new database
-3. Note the connection details (host, username, password)
+2. Create a new database named `flat2112-wordpress`
+3. Configure environment variables in Render dashboard
 
-**See [DATABASE_SETUP.md](DATABASE_SETUP.md) for detailed instructions**
+For detailed Render setup instructions, see [DATABASE_SETUP.md](DATABASE_SETUP.md).
 
-### Step 2: Deploy to Render
-1. **Push to GitHub:**
-   ```bash
-   git add .
-   git commit -m "Initial WordPress setup"
-   git push origin main
-   ```
+## 📁 Project Structure
 
-2. **Connect to Render:**
-   - Go to [Render Dashboard](https://dashboard.render.com/)
-   - Click "New" → "Blueprint"
-   - Connect your GitHub repository
-   - Render will automatically detect the `render.yaml` and set up your services
-
-3. **Configure Environment Variables:**
-   - In Render dashboard, go to your service → Environment
-   - Add your MySQL database credentials:
-     ```
-     DATABASE_HOST=your-mysql-host
-     DATABASE_USER=your-mysql-username
-     DATABASE_PASSWORD=your-mysql-password
-     DATABASE_NAME=wordpress
-     ```
-
-4. **Access your site:**
-   - Once deployed, you'll get a URL like `https://your-app-name.onrender.com`
-   - Complete the WordPress installation
-
-## Local Development
-
-### Prerequisites
-- Docker and Docker Compose installed
-- Git
-
-### Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone <your-repo-url>
-   cd flat2112-woo
-   ```
-
-2. **Start the development environment:**
-   ```bash
-   docker-compose up -d
-   ```
-
-3. **Access your local WordPress:**
-   - Open http://localhost:8080
-   - Complete the WordPress installation
-
-4. **Stop the development environment:**
-   ```bash
-   docker-compose down
-   ```
+```
+flat2112-woo/
+├── docker-compose.yml         # Docker Compose configuration
+├── Dockerfile                 # WordPress container definition
+├── .env.example              # Environment variables template
+├── wp-config.php             # WordPress configuration
+├── wp-content/               # Custom themes and plugins
+│   └── themes/
+│       └── flat2112/         # Custom theme
+├── render.yaml              # Render deployment config
+├── DOCKER_SETUP.md          # Docker setup guide
+├── DATABASE_SETUP.md        # Database setup guide
+└── README.md                # This file
+```
 
 ## Configuration
 
