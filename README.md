@@ -10,25 +10,45 @@ A sample WordPress website configured for deployment on Render.com with Docker.
 - 📱 Responsive WordPress installation
 - 🔧 Local development support
 
-## Quick Deploy to Render
+## Quick Deployment to Render
 
-1. **Fork this repository** to your GitHub account
+### Step 1: Set Up External MySQL Database
+Since Render uses PostgreSQL but WordPress needs MySQL, you'll need an external MySQL database:
+
+**Recommended: PlanetScale (Free Tier)**
+1. Sign up at [PlanetScale](https://planetscale.com/)
+2. Create a new database
+3. Note the connection details (host, username, password)
+
+**See [DATABASE_SETUP.md](DATABASE_SETUP.md) for detailed instructions**
+
+### Step 2: Deploy to Render
+1. **Push to GitHub:**
+   ```bash
+   git add .
+   git commit -m "Initial WordPress setup"
+   git push origin main
+   ```
 
 2. **Connect to Render:**
    - Go to [Render Dashboard](https://dashboard.render.com/)
    - Click "New" → "Blueprint"
    - Connect your GitHub repository
-   - Render will automatically detect the `render.yaml` file
+   - Render will automatically detect the `render.yaml` and set up your services
 
 3. **Configure Environment Variables:**
-   The deployment will automatically set up:
-   - Database connection
-   - WordPress security keys
-   - Basic configuration
+   - In Render dashboard, go to your service → Environment
+   - Add your MySQL database credentials:
+     ```
+     DATABASE_HOST=your-mysql-host
+     DATABASE_USER=your-mysql-username
+     DATABASE_PASSWORD=your-mysql-password
+     DATABASE_NAME=wordpress
+     ```
 
 4. **Access your site:**
-   - Your WordPress site will be available at your Render URL
-   - Complete the WordPress installation wizard
+   - Once deployed, you'll get a URL like `https://your-app-name.onrender.com`
+   - Complete the WordPress installation
 
 ## Local Development
 

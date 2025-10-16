@@ -6,28 +6,18 @@ services:
     plan: starter
     region: oregon
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: wordpress-db
-          property: connectionString
+      # Database configuration - use external MySQL service
+      # You can use services like PlanetScale, Railway, or Aiven for MySQL
       - key: DATABASE_NAME
         value: wordpress
       - key: DATABASE_USER
-        fromDatabase:
-          name: wordpress-db
-          property: user
+        value: wordpress
       - key: DATABASE_PASSWORD
-        fromDatabase:
-          name: wordpress-db
-          property: password
+        sync: false  # Set this in Render dashboard
       - key: DATABASE_HOST
-        fromDatabase:
-          name: wordpress-db
-          property: host
+        sync: false  # Set this in Render dashboard  
       - key: DATABASE_PORT
-        fromDatabase:
-          name: wordpress-db
-          property: port
+        value: "3306"
       - key: WP_DEBUG
         value: "false"
       - key: WP_MEMORY_LIMIT
@@ -52,10 +42,10 @@ services:
       - key: NONCE_SALT
         generateValue: true
 
-databases:
-  - name: wordpress-db
-    databaseName: wordpress
-    user: wordpress
-    plan: starter
-    region: oregon
-    ipAllowList: []
+# Note: Using external MySQL database service
+# Render's managed databases are PostgreSQL, but WordPress needs MySQL
+# Recommended external MySQL providers:
+# - PlanetScale (free tier available)
+# - Railway (MySQL support)
+# - Aiven (MySQL support)
+# - AWS RDS MySQL (if you have AWS account)
