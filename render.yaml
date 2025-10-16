@@ -24,6 +24,10 @@ services:
         fromDatabase:
           name: wordpress-db
           property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: wordpress-db
+          property: port
       - key: WP_DEBUG
         value: "false"
       - key: WP_MEMORY_LIMIT
@@ -53,3 +57,5 @@ databases:
     databaseName: wordpress
     user: wordpress
     plan: starter
+    region: oregon
+    ipAllowList: []

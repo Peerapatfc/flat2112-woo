@@ -7,7 +7,15 @@
 define('DB_NAME', getenv('DATABASE_NAME') ?: 'wordpress');
 define('DB_USER', getenv('DATABASE_USER') ?: 'wordpress');
 define('DB_PASSWORD', getenv('DATABASE_PASSWORD') ?: 'password');
-define('DB_HOST', getenv('DATABASE_HOST') ?: 'localhost');
+
+// Handle database host with port if provided
+$db_host = getenv('DATABASE_HOST') ?: 'localhost';
+$db_port = getenv('DATABASE_PORT');
+if ($db_port && $db_port !== '3306') {
+    $db_host .= ':' . $db_port;
+}
+define('DB_HOST', $db_host);
+
 define('DB_CHARSET', 'utf8mb4');
 define('DB_COLLATE', '');
 
@@ -28,6 +36,10 @@ $table_prefix = getenv('TABLE_PREFIX') ?: 'wp_';
 define('WP_DEBUG', getenv('WP_DEBUG') === 'true');
 define('WP_DEBUG_LOG', getenv('WP_DEBUG_LOG') === 'true');
 define('WP_DEBUG_DISPLAY', getenv('WP_DEBUG_DISPLAY') === 'true');
+
+// Enable database error logging for debugging
+define('WP_DEBUG_LOG', true);
+define('SCRIPT_DEBUG', true);
 
 // Force SSL if HTTPS is available
 if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
