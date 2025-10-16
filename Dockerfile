@@ -11,11 +11,11 @@ RUN apt-get update && apt-get install -y \
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Copy custom wp-config.php if exists
-COPY wp-config.php /var/www/html/ 2>/dev/null || true
+# Copy custom wp-config.php
+COPY wp-config.php /var/www/html/
 
-# Copy custom theme/plugins if they exist
-COPY wp-content/ /var/www/html/wp-content/ 2>/dev/null || true
+# Copy custom theme/plugins
+COPY wp-content/ /var/www/html/wp-content/
 
 # Expose port 80
 EXPOSE 80
